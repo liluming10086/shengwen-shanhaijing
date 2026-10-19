@@ -8,10 +8,26 @@ export default function App() {
   const [page, setPage] = useState('home');
   const [province, setProvince] = useState('');
   const [message, setMessage] = useState('');
+  const trackOrnament = e => {
+    const x = (e.clientX / window.innerWidth - .5) * 22;
+    const y = (e.clientY / window.innerHeight - .5) * 18;
+    const style = document.documentElement.style;
+    style.setProperty('--ornament-x', `${x}px`);
+    style.setProperty('--ornament-x-back', `${-x}px`);
+    style.setProperty('--ornament-y', `${y}px`);
+    style.setProperty('--ornament-y-back', `${-y}px`);
+  };
+  const resetOrnament = () => {
+    const style = document.documentElement.style;
+    style.setProperty('--ornament-x', '0px');
+    style.setProperty('--ornament-x-back', '0px');
+    style.setProperty('--ornament-y', '0px');
+    style.setProperty('--ornament-y-back', '0px');
+  };
   const go = p => { setPage(p); setMessage(''); window.scrollTo({top:0,behavior:'smooth'}); };
   const home = () => { setProvince(''); go('home'); };
   const back = () => { const i=flow.findIndex(x=>x[0]===page); go(i<=0?'home':flow[i-1][0]); };
-  return <div className="shell">
+  return <div className="shell" onPointerMove={trackOrnament} onPointerLeave={resetOrnament}>
     {page !== 'home' && <header className="header">
       <button className="brand" onClick={home}><span className="seal">声</span><span><b>声纹山海图</b><small>方言朗读 · 山海再创作</small></span></button>
       <nav><button onClick={home}>项目首页</button><button onClick={()=>go('province')}>开始体验</button><span className="tag">● 原型框架</span></nav>
@@ -44,10 +60,10 @@ function Ornament({image,className}) {
   return <svg className={className} viewBox="225 430 722 660" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <defs>
       <filter id={filterId} colorInterpolationFilters="sRGB">
-        <feColorMatrix type="matrix" values="0 0 0 0 0.94  0 0 0 0 0.83  0 0 0 0 0.34  0.85 0.85 -1.7 0 -0.2" />
+        <feColorMatrix type="matrix" values="0 0 0 0 1  0 0 0 0 0.92  0 0 0 0 0.4  1.4 1.4 -2.8 0 -0.4" />
       </filter>
       <clipPath id={clipId}>
-        <path d="M225 430h170v190H225z M790 450h157v640H790z M225 950h722v140H225z" />
+        <path d="M225 430h205v220H225z M790 430h157v660H790z M225 920h722v170H225z M270 270h180v180H270z M800 300h147v190H800z" />
       </clipPath>
     </defs>
     <image href={image} x="0" y="0" width="1197" height="1386" filter={`url(#${filterId})`} clipPath={`url(#${clipId})`} />
