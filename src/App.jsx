@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import heroArt from './assets/shanhai-hero.svg';
+import homeReference from './assets/home-reference.jpg';
 
 const provinces = ['北京市','天津市','河北省','山西省','内蒙古自治区','辽宁省','吉林省','黑龙江省','上海市','江苏省','浙江省','安徽省','福建省','江西省','山东省','河南省','湖北省','湖南省','广东省','广西壮族自治区','海南省','重庆市','四川省','贵州省','云南省','西藏自治区','陕西省','甘肃省','青海省','宁夏回族自治区','新疆维吾尔自治区','香港特别行政区','澳门特别行政区','台湾省'];
 const flow = [['province','选择省份'],['beast','浏览异兽'],['reading','方言朗读'],['result','创意结果']];
@@ -12,15 +12,19 @@ export default function App() {
   const home = () => { setProvince(''); go('home'); };
   const back = () => { const i=flow.findIndex(x=>x[0]===page); go(i<=0?'home':flow[i-1][0]); };
   return <div className="shell">
-    <header className="header">
+    {page !== 'home' && <header className="header">
       <button className="brand" onClick={home}><span className="seal">声</span><span><b>声纹山海图</b><small>方言朗读 · 山海再创作</small></span></button>
       <nav><button onClick={home}>项目首页</button><button onClick={()=>go('province')}>开始体验</button><span className="tag">● 原型框架</span></nav>
       <button className="mobile" onClick={()=>go('province')}>开始体验 ↗</button>
-    </header>
+    </header>}
     {page==='home'?<main>
-      <section className="hero"><div className="hero-frame" style={{'--hero-art':`url(${heroArt})`}}><div className="hero-copy"><p className="eyebrow">古韵鼓驱动动画故事</p><h1>让你的声音，<br/><em>遇见山海异兽。</em></h1><p className="lede">从一句方言出发，用方言读出自己的故事。让方言成为创作媒介，与地方文化一起，重新想象《山海经》里的奇珍异兽。</p><div className="hero-actions"><button className="primary" onClick={()=>go('province')}>进入体验 ↗</button><button className="quiet" onClick={()=>document.getElementById('about').scrollIntoView({behavior:'smooth'})}>了解项目 ↓</button></div></div><span className="hero-caption">山海长卷 · 方言朗读与数字再创作</span></div><p className="foot">◇ 一次朗读　✦ 一次结构共造</p></section>
-      <section className="intro" id="about"><span>项目构想<br/><small>ABOUT</small></span><p>以省份作为浏览入口，让古籍、方言与当代创意，在一条可体验、可追溯的路径中相遇。</p><b>山海<br/>共生</b></section>
-      <section className="journey"><div className="section-head"><div><p className="eyebrow">从阅读到再创作</p><h2>一段声音旅程</h2></div><p>首版展示体验结构。内容、分类和创作机制均为待完善模块。</p></div><div className="cards">{flow.map(([id,title],i)=><button key={id} onClick={()=>go(id)}><small>0{i+1}</small><b>{['⌖','◈','〰','✳'][i]}</b><strong>{title}</strong><span>{['以省级行政区作为内容索引。','查看异兽介绍、原文与来源。','朗读入口预留，暂不录音。','展示声音与创意表达预留结构。'][i]}</span><i>↗</i></button>)}</div></section>
+      <section className="home-reference" aria-label="声纹山海图首页参考图">
+        <img src={homeReference} alt="声纹山海图蓝金色首页设计" />
+        <button className="image-hotspot hotspot-top" aria-label="开始体验" onClick={()=>go('province')} />
+        <button className="image-hotspot hotspot-enter" aria-label="进入体验" onClick={()=>go('province')} />
+        <button className="image-hotspot hotspot-about" aria-label="了解项目" onClick={()=>document.getElementById('journey').scrollIntoView({behavior:'smooth'})} />
+      </section>
+      <section className="journey" id="journey"><div className="section-head"><div><p className="eyebrow">从阅读到再创作</p><h2>一段声音旅程</h2></div><p>首版展示体验结构。内容、分类和创作机制均为待完善模块。</p></div><div className="cards">{flow.map(([id,title],i)=><button key={id} onClick={()=>go(id)}><small>0{i+1}</small><b>{['⌖','◈','〰','✳'][i]}</b><strong>{title}</strong><span>{['以省级行政区作为内容索引。','查看异兽介绍、原文与来源。','朗读入口预留，暂不录音。','展示声音与创意表达预留结构。'][i]}</span><i>↗</i></button>)}</div></section>
       <section className="principle"><b>「</b><span><strong>让每一份想象，都能找到它的来处。</strong><small>古籍出处 · 地方文化来源 · 创作过程说明</small></span><button className="quiet" onClick={()=>go('province')}>开始探索 →</button></section>
     </main>:<main className="experience">
       <div className="topline"><button className="quiet" onClick={back}>← {page==='province'?'返回首页':'上一步'}</button><span className="tag">● 交互原型 · 内容待完善</span></div>
@@ -30,7 +34,7 @@ export default function App() {
       {page==='reading'&&<section className="panel"><Heading step="03 / 04" title={<>读出你的<br/><em>山海回响。</em></>} text="朗读文本、录音说明和声纹识别插件的接入位置。当前版本不会请求麦克风，也不会采集或上传录音。"/><div className="reading"><div className="topline"><span>朗读文本</span><small>待补充</small></div><blockquote>此处放入经过核验的《山海经》原文节选。</blockquote><hr/><p className="caption">篇目、版本与文字校勘说明待补充</p><div className="plugin"><b>〰</b><span><strong>声纹识别插件预留</strong><small>尚未接入 · 本页不会使用麦克风</small></span></div><div className="actions"><button className="outline" onClick={()=>setMessage('朗读播放功能待接入；当前没有音频文件。')}>播放示例音频 ▷</button><button className="primary" onClick={()=>go('result')}>查看结果页样例 →</button></div>{message&&<p className="inline">{message}</p>}<p className="privacy">◇ 未来接入录音时，需说明用途，并由用户选择是否公开播放。</p></div></section>}
       {page==='result'&&<section className="panel"><Heading step="04 / 04" title={<>声音的形状，<br/><em>仍待共同创作。</em></>} text="这里预留分类依据和异兽创意表达。下方为静态界面样例，不是录音识别或生成结果。"/><div className="results"><div className="result"><div className="result-title">声音特征 <small>界面示例</small></div>{[['音高','42%'],['响度','65%'],['节奏','54%'],['音色','32%']].map(([a,b])=><div className="trait" key={a}><span>{a}</span><i><b style={{width:b}}/></i><small>待接入</small></div>)}<p className="caption">图形仅示意布局；无录音数据、分类名称或判断结论。</p></div><div className="result"><div className="result-title">异兽创意表达 <small>图片预留</small></div><div className="creation"><b>山<br/>海</b><strong>创意图像预留位置</strong><span>声音特征 × 地方文化元素<br/>待形成可解释的创作规则</span></div><div className="row"><span>古籍出处 / 地方文化来源</span><b>待补充</b></div></div></div><div className="result-actions"><button className="outline" onClick={()=>go('reading')}>返回朗读页面</button><button className="primary" onClick={()=>{setProvince('');go('province')}}>重新开始 ↻</button></div></section>}
     </main>}
-    <footer><button onClick={home}><b>声</b>声纹山海图</button><span>策划构想阶段 · 原型框架</span><span>内容与来源待团队核验</span></footer>
+    {page !== 'home' && <footer><button onClick={home}><b>声</b>声纹山海图</button><span>策划构想阶段 · 原型框架</span><span>内容与来源待团队核验</span></footer>}
   </div>;
 }
 function Heading({step,title,text}){return <div className="heading"><p className="eyebrow">体验 · {step}</p><h1>{title}</h1><p>{text}</p></div>}

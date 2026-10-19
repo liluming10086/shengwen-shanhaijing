@@ -1,8 +1,8 @@
 :root {
   font-family: "兰米粗楷简体", "LANMI_Chukaitijianti", "KaiTi", "STKaiti", serif;
   color: #f6f0dc;
-  background: #2856a5;
-  --paper: #2856a5;
+  background: #2a56af;
+  --paper: #2a56af;
   --white: rgba(34, 77, 149, .82);
   --green: #e5d66b;
   --gold: #e8d96c;
@@ -19,7 +19,7 @@ html, body, #root, #root * {
 #root b, #root strong, #root h1, #root h2 { font-weight: 700; }
 * { scrollbar-color: #decf64 #244d96; }
 html { scroll-behavior: smooth; }
-body, .shell { color: #f6f0dc; background: #2856a5; }
+body, .shell { color: #f6f0dc; background: #2a56af; }
 button, select { font-family: inherit; }
 button:focus-visible, select:focus-visible { outline-color: #f0df63; }
 
@@ -38,53 +38,36 @@ button:focus-visible, select:focus-visible { outline-color: #f0df63; }
 .tag { color: #f0e6b0; border-color: rgba(237, 224, 151, .42); }
 .mobile { color: #fff5cf; border-color: rgba(235, 223, 154, .6); }
 
-.hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 18px;
-  min-height: auto;
-  padding: 16px 20px 36px;
-}
-.hero-frame {
+.home-reference {
   position: relative;
-  isolation: isolate;
   width: min(720px, 100%);
-  height: clamp(700px, calc(100svh - 140px), 960px);
+  aspect-ratio: 720 / 1386;
+  margin: 0 auto;
   overflow: hidden;
-  background: #24519e var(--hero-art) center / cover no-repeat;
-  box-shadow: 0 18px 48px rgba(11, 34, 81, .22);
 }
-.hero-frame::before {
+.home-reference > img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  display: block;
+  width: 166.25%;
+  max-width: none;
+  height: auto;
+  transform: translateX(-49.04%);
+  user-select: none;
+}
+.image-hotspot {
   position: absolute;
   z-index: 1;
-  inset: 12px;
-  border: 1px solid rgba(238, 224, 132, .34);
-  content: "";
-  pointer-events: none;
+  min-height: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: transparent;
 }
-.hero-frame::after {
-  position: absolute;
-  z-index: 0;
-  inset: 35% 0 0;
-  background: linear-gradient(180deg, transparent 0%, rgba(18, 53, 117, .17) 28%, rgba(17, 48, 105, .64) 100%);
-  content: "";
-}
-.hero-copy {
-  position: absolute;
-  z-index: 2;
-  right: 36px;
-  bottom: 62px;
-  left: 40px;
-  max-width: 465px;
-}
-.hero-copy .eyebrow { color: #f0e58b; font-size: 12px; letter-spacing: .12em; }
-.hero-copy h1 { color: #fff9e8; font-size: clamp(38px, 5vw, 56px); line-height: 1.35; text-shadow: 0 2px 12px rgba(18, 44, 91, .3); }
-.hero-copy h1 em { color: #fff9e8; }
-.hero-copy .lede { color: #f1eedc; font-size: 14px; line-height: 2; text-shadow: 0 1px 8px rgba(18, 44, 91, .45); }
-.hero-actions { display: flex; align-items: center; gap: 22px; margin-top: 24px; }
-.hero-caption { position: absolute; z-index: 2; top: 19px; left: 26px; color: rgba(246, 238, 194, .72); font-size: 9px; letter-spacing: .14em; }
-.foot { width: min(720px, 100%); margin: 0; padding-left: 28px; color: #ede29d; font-size: 11px; }
+.hotspot-top { top: 2.65%; left: 76.3%; width: 19.3%; height: 3.9%; }
+.hotspot-enter { top: 68.8%; left: 5.4%; width: 24%; height: 4.9%; }
+.hotspot-about { top: 68.8%; left: 29.5%; width: 26.8%; height: 4.9%; }
 
 .primary {
   border-color: rgba(239, 225, 131, .66);
@@ -96,15 +79,11 @@ button:focus-visible, select:focus-visible { outline-color: #f0df63; }
 .quiet, .link { color: #f2e8b2; }
 .quiet:hover, .link:hover { color: #fff4a3; }
 
-.intro, .journey, .principle {
+.journey, .principle {
   width: min(720px, calc(100% - 40px));
   margin-right: auto;
   margin-left: auto;
 }
-.intro { border-color: var(--line); }
-.intro > span { color: #f1df72; }
-.intro small, .intro p { color: #e1e0d5; }
-.intro > b { color: #f0df74; border-color: #e1d46f; }
 .journey { padding: 64px 0; }
 .section-head .eyebrow { color: #f1df72; }
 .section-head h2 { color: #fff6d7; }
@@ -162,23 +141,11 @@ footer button b { border-color: #e5d66b; color: #f0e27f; }
 .topline .tag { color: #f1e8bd; }
 
 @media (max-width: 800px) {
-  .hero-frame { height: clamp(680px, calc(100svh - 132px), 900px); }
   .journey { padding: 52px 0; }
 }
 @media (max-width: 600px) {
   .header { height: 74px; padding-inline: 17px; }
-  .hero { padding: 10px 12px 28px; gap: 13px; }
-  .hero-frame { height: max(690px, calc(100svh - 115px)); min-height: 0; background-position: center; }
-  .hero-frame::before { inset: 8px; }
-  .hero-caption { top: 20px; left: 20px; font-size: 8px; }
-  .hero-copy { right: 20px; bottom: 35px; left: 22px; }
-  .hero-copy .eyebrow { font-size: 10px; margin-bottom: 12px; }
-  .hero-copy h1 { font-size: clamp(34px, 9vw, 43px); }
-  .hero-copy .lede { font-size: 11px; line-height: 1.9; margin: 14px 0 18px; }
-  .hero-actions { gap: 17px; margin-top: 16px; }
-  .hero-actions .quiet { margin-left: 0; }
-  .foot { padding-left: 10px; font-size: 9px; }
-  .intro, .journey, .principle { width: calc(100% - 34px); }
+  .journey, .principle { width: calc(100% - 34px); }
   .journey { padding: 42px 0; }
   .experience { padding: 16px 14px 40px; }
 }
