@@ -13,7 +13,10 @@
 
 html, body, #root, #root * {
   font-family: var(--serif) !important;
+  font-weight: 600;
+  font-synthesis: weight;
 }
+#root b, #root strong, #root h1, #root h2 { font-weight: 700; }
 * { scrollbar-color: #decf64 #244d96; }
 html { scroll-behavior: smooth; }
 body, .shell { color: #f6f0dc; background: #2856a5; }
