@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import heroArt from './assets/shanhai-hero.svg';
 
 const provinces = ['北京市','天津市','河北省','山西省','内蒙古自治区','辽宁省','吉林省','黑龙江省','上海市','江苏省','浙江省','安徽省','福建省','江西省','山东省','河南省','湖北省','湖南省','广东省','广西壮族自治区','海南省','重庆市','四川省','贵州省','云南省','西藏自治区','陕西省','甘肃省','青海省','宁夏回族自治区','新疆维吾尔自治区','香港特别行政区','澳门特别行政区','台湾省'];
 const flow = [['province','选择省份'],['beast','浏览异兽'],['reading','方言朗读'],['result','创意结果']];
@@ -17,7 +18,7 @@ export default function App() {
       <button className="mobile" onClick={()=>go('province')}>开始体验 ↗</button>
     </header>
     {page==='home'?<main>
-      <section className="hero"><div><p className="eyebrow">— 方言朗读驱动的数字再创作</p><h1>让你的声音，<br/><em>遇见山海异兽。</em></h1><p className="lede">从一段古籍出发，用方言读出自己的节奏。让声音成为创作线索，与地方文化一起，重新想象《山海经》里的奇珍异兽。</p><button className="primary" onClick={()=>go('province')}>进入体验 ↗</button><button className="quiet" onClick={()=>document.getElementById('about').scrollIntoView({behavior:'smooth'})}>了解项目 ↓</button><p className="foot">◇ 一次朗读，一次创作探索</p></div><div className="landscape"><i className="sun"/><i className="mountain one"/><i className="mountain two"/><i className="river"/><b>山<br/>海</b><small>山海图 · 视觉占位</small></div></section>
+      <section className="hero"><div className="hero-frame" style={{'--hero-art':`url(${heroArt})`}}><div className="hero-copy"><p className="eyebrow">古韵鼓驱动动画故事</p><h1>让你的声音，<br/><em>遇见山海异兽。</em></h1><p className="lede">从一句方言出发，用方言读出自己的故事。让方言成为创作媒介，与地方文化一起，重新想象《山海经》里的奇珍异兽。</p><div className="hero-actions"><button className="primary" onClick={()=>go('province')}>进入体验 ↗</button><button className="quiet" onClick={()=>document.getElementById('about').scrollIntoView({behavior:'smooth'})}>了解项目 ↓</button></div></div><span className="hero-caption">山海长卷 · 方言朗读与数字再创作</span></div><p className="foot">◇ 一次朗读　✦ 一次结构共造</p></section>
       <section className="intro" id="about"><span>项目构想<br/><small>ABOUT</small></span><p>以省份作为浏览入口，让古籍、方言与当代创意，在一条可体验、可追溯的路径中相遇。</p><b>山海<br/>共生</b></section>
       <section className="journey"><div className="section-head"><div><p className="eyebrow">从阅读到再创作</p><h2>一段声音旅程</h2></div><p>首版展示体验结构。内容、分类和创作机制均为待完善模块。</p></div><div className="cards">{flow.map(([id,title],i)=><button key={id} onClick={()=>go(id)}><small>0{i+1}</small><b>{['⌖','◈','〰','✳'][i]}</b><strong>{title}</strong><span>{['以省级行政区作为内容索引。','查看异兽介绍、原文与来源。','朗读入口预留，暂不录音。','展示声音与创意表达预留结构。'][i]}</span><i>↗</i></button>)}</div></section>
       <section className="principle"><b>「</b><span><strong>让每一份想象，都能找到它的来处。</strong><small>古籍出处 · 地方文化来源 · 创作过程说明</small></span><button className="quiet" onClick={()=>go('province')}>开始探索 →</button></section>
