@@ -154,37 +154,6 @@ footer button b { border-color: #e5d66b; color: #f0e27f; }
   html { scroll-behavior: auto; }
 }
 
-/* Reuse gold details from the supplied homepage image on experience pages. */
-.experience-ornament {
-  position: fixed;
-  z-index: 0;
-  inset: -18px;
-  width: calc(100vw + 36px);
-  height: calc(100vh + 36px);
-  opacity: .78;
-  pointer-events: none;
-  transform: translate3d(var(--ornament-x-back, 0px), var(--ornament-y-back, 0px), 0) scale(1.025);
-  transition: transform 160ms ease-out;
-}
-.experience { position: relative; z-index: 1; }
-.panel { position: relative; isolation: isolate; }
-.panel-ornament {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: .48;
-  pointer-events: none;
-  transform: translate3d(var(--ornament-x, 0px), var(--ornament-y, 0px), 0) scale(1.035);
-  transition: transform 180ms ease-out;
-}
-.panel > :not(.panel-ornament) { position: relative; z-index: 1; }
-
-@media (prefers-reduced-motion: reduce) {
-  .experience-ornament, .panel-ornament { transition: none; transform: none; }
-}
-
 /* Deep-sea blue and flowing-gold treatment for the beast information card. */
 .beast {
   position: relative;
@@ -217,18 +186,7 @@ footer button b { border-color: #e5d66b; color: #f0e27f; }
   opacity: .16;
   pointer-events: none;
 }
-.beast-ornament {
-  position: absolute;
-  z-index: 0;
-  inset: -10px;
-  width: calc(100% + 20px);
-  height: calc(100% + 20px);
-  opacity: .34;
-  pointer-events: none;
-  transform: translate3d(var(--ornament-x, 0px), var(--ornament-y, 0px), 0) scale(1.035);
-  transition: transform 180ms ease-out;
-}
-.beast > :not(.beast-ornament) { position: relative; z-index: 1; }
+.beast > * { position: relative; z-index: 1; }
 .image-slot {
   min-height: 330px;
   overflow: hidden;
@@ -274,6 +232,61 @@ footer button b { border-color: #e5d66b; color: #f0e27f; }
   .image-slot { min-height: 230px; }
   .details { padding: 0 3px 4px; }
 }
-@media (prefers-reduced-motion: reduce) {
-  .beast-ornament { transition: none; transform: none; }
+/* User-supplied paintings are used directly as page backgrounds. */
+.shell.page-shell {
+  background-color: #123b7e;
+  background-image: var(--page-background);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.journey {
+  width: 100%;
+  margin: 0;
+  padding: 64px 24px;
+  background-size: cover;
+  background-position: center 52%;
+  background-repeat: no-repeat;
+}
+.journey-content { width: min(720px, 100%); margin: 0 auto; }
+.journey .section-head, .journey .cards { max-width: 720px; margin-left: auto; margin-right: auto; }
+.home-reference { isolation: isolate; }
+.image-copy-fix {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: #2a56af;
+  color: #fff8e4;
+  white-space: nowrap;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-synthesis: weight;
+  line-height: 1.2;
+  pointer-events: none;
+}
+.brand-seal-fix {
+  left: 6.5%; top: 2.35%; width: 3.7%; height: 3.15%;
+  justify-content: center;
+  font-size: clamp(9px, 2.08vw, 15px);
+}
+.brand-title-fix {
+  left: 13.7%; top: 2.15%; width: 18.5%; height: 2.25%;
+  font-size: clamp(9px, 2.22vw, 16px);
+}
+.project-kicker-fix {
+  left: 5.2%; top: 90.7%; width: 36%; height: 2.2%;
+  font-size: clamp(7px, 1.25vw, 9px);
+  letter-spacing: .1em;
+}
+.project-title-fix {
+  left: 5.2%; top: 94.8%; width: 34%; height: 3.7%;
+  font-size: clamp(16px, 3.75vw, 27px);
+  letter-spacing: .04em;
+}
+@media (max-width: 600px) {
+  .journey { padding: 42px 17px; }
+  .shell.page-shell { background-attachment: scroll; }
 }
