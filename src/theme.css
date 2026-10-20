@@ -204,14 +204,6 @@ button:disabled, select:disabled { opacity: .62; cursor: not-allowed; }
 
 .home-reference { isolation: isolate; }
 .home-reference > img { z-index: -1; }
-.home-reference::after {
-  content: "";
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(ellipse 68% 31% at 34% 60%, rgba(7, 26, 58, .6), rgba(7, 26, 58, .25) 72%, transparent 100%);
-}
 .image-hotspot { z-index: 1; }
 .image-copy-fix { z-index: 2; }
 .brand-title-fix { width: 14%; }
