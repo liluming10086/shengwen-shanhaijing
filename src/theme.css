@@ -203,14 +203,15 @@ button:disabled, select:disabled { opacity: .62; cursor: not-allowed; }
 }
 
 .home-reference { isolation: isolate; }
-.home-reference > img { z-index: -1; }
+.home-reference > img { z-index: -1; filter: contrast(1.08); }
 .image-hotspot { z-index: 1; }
 .image-copy-fix { z-index: 2; }
+#root .image-copy-fix { font-weight: 800; -webkit-text-stroke: .25px currentColor; }
 .brand-title-fix { width: 14%; }
 .project-kicker-fix { width: 23%; }
 .project-title-fix { width: 24%; }
-
 .journey { padding: clamp(52px, 7vw, 82px) clamp(17px, 4vw, 48px); }
+#root .journey, #root .principle { font-weight: 700; }
 .journey .section-head {
   max-width: 980px;
   margin: 0 auto 22px;
@@ -535,7 +536,7 @@ footer button b { width: 28px; height: 28px; color: #fff0a6; border-color: var(-
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: #2a56af;
+  background: #2353b3;
   color: #fff8e4;
   white-space: nowrap;
   font-family: var(--serif);
