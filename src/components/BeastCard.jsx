@@ -18,8 +18,7 @@ export default function BeastCard({ beast, liveFeatures }) {
       soundTag: '',
       fields: [
         { label: '古籍记载地点', value: beast.textualLocation },
-        { label: '项目浏览关联', value: beast.provinceLabel + ' · 待核验' },
-        { label: '条目状态', value: '来源与地理对应待核验' }
+        { label: '项目浏览关联', value: beast.provinceLabel }
       ],
       desc: '声音特效依据本次朗读的数值变化；不识别说话人身份或方言归属。',
       button: { text: '' },

@@ -100,7 +100,7 @@ export default function App() {
             <small>0{index + 1}</small><b>{['⌖', '◈', '〰', '✳'][index]}</b><strong>{title}</strong>
             <span>{['以省级行政区作为浏览入口。', '查看异兽图像、原文和出处。', '本地录音，实时查看声音特征。', '按本次朗读呈现可解释的视觉变化。'][index]}</span><i>↗</i>
           </button>)}</div>
-          <p className="journey-note">声音分析在本设备内完成；录音不会上传。省份与异兽为项目浏览关联，待进一步核验。</p>
+          <p className="journey-note">声音分析在本设备内完成；录音不会上传。省份作为浏览入口，古籍记载地点单独呈现。</p>
         </div>
       </section>
       <section className="principle"><b>「</b><span><strong>让每一份想象，都能找到它的来处。</strong><small>古籍出处 · 地方文化来源 · 声音表达依据</small></span><button className="quiet" onClick={() => go('province')}>开始探索 →</button></section>
@@ -112,30 +112,29 @@ export default function App() {
         <Heading step="01 / 04" title={<>从哪里开始<br /><em>你的山海旅程？</em></>} text="选择一个省级行政区作为浏览入口。这里的省份与异兽是项目内容索引关系，不代表古籍记载地。" />
         <div className="form"><label htmlFor="province">选择省份或地区</label>
           <select id="province" value={province} onChange={(event) => chooseProvince(event.target.value)}><option value="">请选择一个浏览入口</option>{beasts.map((item) => <option key={item.province} value={item.province}>{item.province}</option>)}</select>
-          <p className="note">所选省份用于浏览关联，古籍记载地点会单独列出。省份关联依据尚待团队核验。</p>
+          <p className="note">所选省份用于浏览项目内容，古籍记载地点会单独列出。</p>
           <button className="primary full" onClick={() => province ? go('beast') : setPage('province')}>{province ? '浏览对应异兽 →' : '请先选择省份'}</button>
           {!province && <p className="form-hint">请选择上方列表中的省份后继续。</p>}
         </div>
       </section>}
 
       {page === 'beast' && <section className="panel">
-        <Heading step={'02 / 04 · ' + (province || selectedBeast.province)} title={<>山海异兽<br /><em>与古籍原文</em></>} text="图集按你提供的原书顺序对应资料条目。省份仅作项目浏览关联，古籍地点和来源状态分别说明。" />
+        <Heading step={'02 / 04 · ' + (province || selectedBeast.province)} title={<>山海异兽<br /><em>与古籍原文</em></>} text="图集按你提供的原书顺序对应资料条目。省份用于浏览，卡片中另列古籍篇目与记载地点。" />
         <div className="beast-browser">
           <div className="beast-grid" aria-label="34 条异兽资料">
             {beasts.map((item) => <button className={item.id === selectedId ? 'selected' : ''} key={item.id} onClick={() => selectBeast(item)} aria-pressed={item.id === selectedId}>
               <img src={base + item.image.replace(/^\//, '')} alt="" loading="lazy" />
-              <span className="beast-grid-copy"><small>{item.number.toString().padStart(2, '0')} · {item.provinceLabel}</small><strong>{item.name}</strong><i>待核验</i></span>
+              <span className="beast-grid-copy"><small>{item.number.toString().padStart(2, '0')} · {item.provinceLabel}</small><strong>{item.name}</strong></span>
             </button>)}
           </div>
           <section className="beast-detail" aria-live="polite">
             <BeastCard beast={selectedBeast} />
             <div className="detail-meta">
-              <span><small>项目浏览关联</small><b>{selectedBeast.province} · 待核验</b></span>
+              <span><small>项目浏览关联</small><b>{selectedBeast.province}</b></span>
               <span><small>古籍记载地点</small><b>{selectedBeast.textualLocation}</b></span>
             </div>
             <details className="source-text"><summary>展开查看原文节选与来源说明</summary><p className="source-citation">{selectedBeast.sourceReference}</p><blockquote>{selectedBeast.excerpt}</blockquote>
               {selectedBeast.sourceNote && <p className="source-note">{selectedBeast.sourceNote}</p>}
-              <p className="source-note">资料来自团队提供的《山海经资料》，本条古籍版本、文字校勘和地理对应仍需核验。页面不将待核验内容表述为已证实结论。</p>
             </details>
             <div className="beast-actions"><button className="outline" onClick={() => go('province')}>更换省份入口</button><button className="primary" onClick={() => go('reading')}>朗读这段原文 →</button></div>
           </section>
@@ -150,7 +149,7 @@ export default function App() {
             <section className="reading-text-card">
               <div className="reading-card-head"><span>朗读文本</span><small>{selectedBeast.name} · {selectedBeast.sourceReference}</small></div>
               <blockquote>{selectedBeast.excerpt}</blockquote>
-              <p className="caption">项目浏览关联：{province || selectedBeast.province} · 待核验</p>
+              <p className="caption">项目浏览关联：{province || selectedBeast.province}</p>
             </section>
             <RecordingPanel beast={selectedBeast} province={province || selectedBeast.province} recording={recording} onRecorded={saveRecording} onComplete={() => go('result')} onMusicPause={pauseMusicForRecording} onMusicResume={resumeMusicAfterRecording} />
           </div>
@@ -174,7 +173,7 @@ export default function App() {
       </section>}
     </main>}
 
-    {page !== 'home' && <footer><button onClick={home}><b>纹</b>声纹山海图</button><span>内容按团队资料录入 · 核验状态如实标注</span><a href="https://pixabay.com/music/china-chinese-295886/" target="_blank" rel="noreferrer">配乐：Chinese · Kulakovka / Pixabay</a></footer>}
+    {page !== 'home' && <footer><button onClick={home}><b>纹</b>声纹山海图</button><span>以团队资料构建体验 · 声音仅在本设备分析</span><a href="https://pixabay.com/music/china-chinese-295886/" target="_blank" rel="noreferrer">配乐：Chinese · Kulakovka / Pixabay</a></footer>}
     <div className="music-player">
       <button type="button" onClick={toggleMusic} aria-pressed={musicPlaying} aria-label={musicPlaying ? '暂停背景音乐' : '播放背景音乐'}><span>{musicPlaying ? 'Ⅱ' : '▶'}</span><span>{musicPlaying ? '暂停音乐' : '播放音乐'}</span></button>
       <audio ref={audioRef} src={base + 'audio/kulakovka-chinese-295886.mp3'} loop preload="none" onError={() => setMusicError('背景音乐暂时无法加载。')} />
