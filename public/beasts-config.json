@@ -1,0 +1,958 @@
+{
+  "basePath": "/images/beasts/",
+  "count": 34,
+  "cards": [
+    {
+      "id": "beast-01",
+      "name": "讙",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《山海经·西山经》翼望之山",
+      "num": "兽谱 № 01",
+      "image": "/images/beasts/beast-01-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "翼望之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "北京 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《山海经·西山经》"
+        }
+      ],
+      "desc": "西水行百里，至于翼望之山，无草木，多金玉。有兽焉，其状如狸，一目而三尾，名曰讙，其音如夺百声，是可以御凶，服之已瘅。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-02",
+      "name": "天吴",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《海外东经》朝阳之谷",
+      "num": "兽谱 № 02",
+      "image": "/images/beasts/beast-02-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "朝阳之谷"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "天津 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《海外东经》"
+        }
+      ],
+      "desc": "朝阳之谷，神曰天吴，是为水伯。在𧈫𧈫北两水间。其为兽也，八首人面，八足八尾，皆青黄。\n\n《大荒东经》亦有记载，文字略异：“有神人，八首人面，虎身十尾，名曰天吴。”",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-03",
+      "name": "诸怀",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《北山经》北岳之山",
+      "num": "兽谱 № 03",
+      "image": "/images/beasts/beast-03-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "北岳之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "河北 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《北山经》"
+        }
+      ],
+      "desc": "又北二百里，曰北岳之山，多枳棘刚木。有兽焉，其状如牛而四角，人目彘耳，其名曰诸怀，其音如鸣雁，是食人。诸怀之水出焉，而西流注于嚣水。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-04",
+      "name": "精卫",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《北山经》发鸠之山",
+      "num": "兽谱 № 04",
+      "image": "/images/beasts/beast-04-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "发鸠之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "山西 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《北山经》"
+        }
+      ],
+      "desc": "又北二百里，曰发鸠之山，其上多柘木。有鸟焉，其状如乌，文首，白喙，赤足，名曰精卫，其鸣自詨。是炎帝之少女，名曰女娃。女娃游于东海，溺而不返，故为精卫。常衔西山之木石，以堙于东海。漳水出焉，东流注于河。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-05",
+      "name": "天狗",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《西山经》阴山",
+      "num": "兽谱 № 05",
+      "image": "/images/beasts/beast-05-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "阴山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "内蒙古 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《西山经》"
+        }
+      ],
+      "desc": "又西三百里，曰阴山。浊浴之水出焉，而南流注于蕃泽，其中多文贝。有兽焉，其状如狸而白首，名曰天狗，其音如榴榴，可以御凶。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-06",
+      "name": "巴蛇",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《海内南经》",
+      "num": "兽谱 № 06",
+      "image": "/images/beasts/beast-06-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "原文所述地点，待核验"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "四川 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《海内南经》"
+        }
+      ],
+      "desc": "巴蛇食象，三岁而出其骨。君子服之，无心腹之疾。其为蛇，青黄赤黑。一曰黑蛇青首，在犀牛西。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-07",
+      "name": "并封",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《海外西经》巫咸东",
+      "num": "兽谱 № 07",
+      "image": "/images/beasts/beast-07-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "巫咸东"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "辽宁 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《海外西经》"
+        }
+      ],
+      "desc": "并封在巫咸东，其状如彘，前后皆有首，黑。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-08",
+      "name": "九凤",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《大荒北经》北极天柜山",
+      "num": "兽谱 № 08",
+      "image": "/images/beasts/beast-08-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "北极天柜山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "吉林 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《大荒北经》"
+        }
+      ],
+      "desc": "大荒之中，有山名曰北极天柜，海水北注焉。有神九首，人面鸟身，名曰九凤。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-09",
+      "name": "强良",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《大荒北经》北极天柜山",
+      "num": "兽谱 № 09",
+      "image": "/images/beasts/beast-09-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "北极天柜山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "黑龙江 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《大荒北经》"
+        }
+      ],
+      "desc": "又有神衔蛇操蛇，其状虎首人身，四蹄长肘，名曰强良。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-10",
+      "name": "文鳐鱼",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《西山经》泰器之山",
+      "num": "兽谱 № 10",
+      "image": "/images/beasts/beast-10-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "泰器之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "上海 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《西山经》"
+        }
+      ],
+      "desc": "又西百八十里，曰泰器之山。观水出焉，西流注于流沙。是多文鳐鱼，状如鲤鱼，鱼身而鸟翼，苍文而白首赤喙，常行西海，游于东海，以夜飞。其音如鸾鸡，其味酸甘，食之已狂，见则天下大穰。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-11",
+      "name": "旋龟",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《南山经》杻阳之山",
+      "num": "兽谱 № 11",
+      "image": "/images/beasts/beast-11-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "杻阳之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "江苏 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《南山经》"
+        }
+      ],
+      "desc": "又东三百七十里，曰杻阳之山，其阳多赤金，其阴多白金。……怪水出焉，而东流注于宪翼之水。其中多玄龟，其状如龟而鸟首虺尾，其名曰旋龟，其音如判木，佩之不聋，可以为底。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-12",
+      "name": "龙马",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《山海经·中山经》（《中次九经》）",
+      "num": "兽谱 № 12",
+      "image": "/images/beasts/beast-12-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "《中次九经》"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "浙江 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《山海经·中山经》"
+        }
+      ],
+      "desc": "凡岷山之首，自女几山至于贾超之山，凡十六山，三千五百里。其神状皆马身而龙首。其祠：毛用一雄鸡瘗，糈用稌。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-13",
+      "name": "鹿蜀",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《南山经》杻阳之山",
+      "num": "兽谱 № 13",
+      "image": "/images/beasts/beast-13-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "杻阳之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "安徽 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《南山经》"
+        }
+      ],
+      "desc": "又东三百七十里，曰杻阳之山，其阳多赤金，其阴多白金。有兽焉，其状如马而白首，其文如虎而赤尾，其音如谣，其名曰鹿蜀，佩之宜子孙。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-14",
+      "name": "蛊雕",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《南山经》鹿吴之山",
+      "num": "兽谱 № 14",
+      "image": "/images/beasts/beast-14-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "鹿吴之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "福建 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《南山经》"
+        }
+      ],
+      "desc": "又东五百里，曰鹿吴之山，上无草木，多金石。泽更之水出焉，而南流注于滂水。水有兽焉，名曰蛊雕，其状如雕而有角，其音如婴儿之音，是食人。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-15",
+      "name": "鸣蛇",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《中次二经》鲜山",
+      "num": "兽谱 № 15",
+      "image": "/images/beasts/beast-15-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "鲜山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "江西 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《中次二经》"
+        }
+      ],
+      "desc": "又西三百里，曰鲜山，多金玉，无草木。鲜水出焉，而北流注于伊水。其中多鸣蛇，其状如蛇而四翼，其音如磬，见则其邑大旱。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-16",
+      "name": "蜚",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《东山经》太山",
+      "num": "兽谱 № 16",
+      "image": "/images/beasts/beast-16-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "太山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "山东 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《东山经》"
+        }
+      ],
+      "desc": "又东二百里，曰太山，上多金玉、桢木。有兽焉，其状如牛而白首，一目而蛇尾，其名曰蜚。行水则竭，行草则死，见则天下大疫。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-17",
+      "name": "鴢",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《中次三经》青要之山",
+      "num": "兽谱 № 17",
+      "image": "/images/beasts/beast-17-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "青要之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "河南 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《中次三经》"
+        }
+      ],
+      "desc": "又东十里，曰青要之山，实维帝之密都。……畛水出焉，而北流注于河。其中有鸟焉，名曰鴢，其状如凫，青身而朱目赤尾，食之宜子。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-18",
+      "name": "计蒙",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《中次八经》光山",
+      "num": "兽谱 № 18",
+      "image": "/images/beasts/beast-18-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "光山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "湖北 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《中次八经》"
+        }
+      ],
+      "desc": "又东百三十里，曰光山，其上多碧，其下多木。神计蒙处之，其状人身而龙首，恒游于漳渊，出入必有飘风暴雨。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-19",
+      "name": "化蛇",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《中次二经》阳山",
+      "num": "兽谱 № 19",
+      "image": "/images/beasts/beast-19-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "阳山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "湖南 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《中次二经》"
+        }
+      ],
+      "desc": "又西三百里，曰阳山，多石，无草木。阳水出焉，而北流注于伊水。其中多化蛇，其状如人面而豺身，鸟翼而蛇行，其音如叱呼，见则其邑大水。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-20",
+      "name": "狌狌",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《南山经》招摇之山",
+      "num": "兽谱 № 20",
+      "image": "/images/beasts/beast-20-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "招摇之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "广东 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《南山经》"
+        }
+      ],
+      "desc": "南山经之首曰䧿山。其首曰招摇之山，临于西海之上，多桂，多金玉。……有兽焉，其状如禺而白耳，伏行人走，其名曰狌狌，食之善走。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-21",
+      "name": "虎蛟",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《南山经》祷过之山",
+      "num": "兽谱 № 21",
+      "image": "/images/beasts/beast-21-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "祷过之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "广西 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《南山经》"
+        }
+      ],
+      "desc": "东五百里，曰祷过之山，其上多金玉，其下多犀、兕，多象。……泿水出焉，而南流注于海。其中有虎蛟，其状鱼身而蛇尾，其音如鸳鸯，食者不肿，可以已痔。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-22",
+      "name": "龙鱼",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《海外西经》",
+      "num": "兽谱 № 22",
+      "image": "/images/beasts/beast-22-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "原文所述地点，待核验"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "海南 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《海外西经》"
+        }
+      ],
+      "desc": "龙鱼陵居在其北，状如狸。一曰鰕。即有神圣乘此以行九野。一曰鳖鱼在夭野北，其为鱼也如鲤。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-23",
+      "name": "夔",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《大荒东经》流波山",
+      "num": "兽谱 № 23",
+      "image": "/images/beasts/beast-23-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "流波山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "重庆 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《大荒东经》"
+        }
+      ],
+      "desc": "东海中有流波山，入海七千里。其上有兽，状如牛，苍身而无角，一足，出入水则必风雨，其光如日月，其声如雷，其名曰夔。黄帝得之，以其皮为鼓，橛以雷兽之骨，声闻五百里，以威天下。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-24",
+      "name": "寓",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《北山经》虢山",
+      "num": "兽谱 № 24",
+      "image": "/images/beasts/beast-24-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "虢山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "贵州 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《北山经》"
+        }
+      ],
+      "desc": "又北三百八十里，曰虢山，其上多漆，其下多桐椐，其阳多玉，其阴多铁。伊水出焉，西流注于河。其兽多橐驼，其鸟多寓，状如鼠而鸟翼，其音如羊，可以御兵。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-25",
+      "name": "朱厌",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《西山经》小次之山",
+      "num": "兽谱 № 25",
+      "image": "/images/beasts/beast-25-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "小次之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "云南 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《西山经》"
+        }
+      ],
+      "desc": "又西四百里，曰小次之山，其上多白玉，其下多赤铜。有兽焉，其状如猿，而白首赤足，名曰朱厌，见则大兵。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-26",
+      "name": "西王母",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《西山经》玉山",
+      "num": "兽谱 № 26",
+      "image": "/images/beasts/beast-26-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "玉山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "西藏 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《西山经》"
+        }
+      ],
+      "desc": "又西三百五十里，曰玉山，是西王母所居也。西王母其状如人，豹尾虎齿而善啸，蓬发戴胜，是司天之厉及五残。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-27",
+      "name": "狰",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《西山经》章莪之山",
+      "num": "兽谱 № 27",
+      "image": "/images/beasts/beast-27-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "章莪之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "陕西 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《西山经》"
+        }
+      ],
+      "desc": "又西二百八十里，曰章莪之山，无草木，多瑶碧。所为甚怪。有兽焉，其状如赤豹，五尾一角，其音如击石，其名曰狰。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-28",
+      "name": "鸱",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《西次三经》三危之山",
+      "num": "兽谱 № 28",
+      "image": "/images/beasts/beast-28-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "三危之山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "甘肃 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《西次三经》"
+        }
+      ],
+      "desc": "又西二百二十里，曰三危之山，三青鸟居之。……有鸟焉，一首而三身，其状如𪇱，其名曰鸱。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-29",
+      "name": "陆吾",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《西次三经》昆仑之丘",
+      "num": "兽谱 № 29",
+      "image": "/images/beasts/beast-29-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "昆仑之丘"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "青海 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《西次三经》"
+        }
+      ],
+      "desc": "西南四百里，曰昆仑之丘，是实惟帝之下都，神陆吾司之。其神状虎身而九尾，人面而虎爪；是神也，司天之九部及帝之囿时。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-30",
+      "name": "狡",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《西山经》玉山",
+      "num": "兽谱 № 30",
+      "image": "/images/beasts/beast-30-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "玉山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "宁夏 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《西山经》"
+        }
+      ],
+      "desc": "又西三百五十里，曰玉山，是西王母所居也。……有兽焉，其状如犬而豹文，其角如牛，其名曰狡，其音如吠犬，见则其国大穰。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-31",
+      "name": "帝江",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《西次三经》天山",
+      "num": "兽谱 № 31",
+      "image": "/images/beasts/beast-31-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "天山"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "新疆 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《西次三经》"
+        }
+      ],
+      "desc": "又西三百五十里，曰天山，多金玉，有青雄黄。英水出焉，而西南流注于汤谷。有神焉，其状如黄囊，赤如丹火，六足四翼，浑敦无面目，是识歌舞，实惟帝江也。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-32",
+      "name": "狂鸟",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《大荒西经》",
+      "num": "兽谱 № 32",
+      "image": "/images/beasts/beast-32-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "原文所述地点，待核验"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "台湾 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《大荒西经》"
+        }
+      ],
+      "desc": "有五采之鸟，有冠，名曰狂鸟。有大泽之长山。有白氏之国。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-33",
+      "name": "驺吾",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《海内北经》林氏国",
+      "num": "兽谱 № 33",
+      "image": "/images/beasts/beast-33-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "林氏国"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "香港 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《海内北经》"
+        }
+      ],
+      "desc": "林氏国有珍兽，大若虎，五采毕具，尾长于身，名曰驺吾，乘之日行千里。",
+      "button": {
+        "text": ""
+      }
+    },
+    {
+      "id": "beast-34",
+      "name": "陵鱼",
+      "pinyin": "",
+      "soundTag": "",
+      "book": "《山海经·海内北经》",
+      "num": "兽谱 № 34",
+      "image": "/images/beasts/beast-34-gold.png",
+      "fields": [
+        {
+          "label": "古籍记载地点",
+          "value": "原文所述地点，待核验"
+        },
+        {
+          "label": "项目浏览关联",
+          "value": "澳门 · 待核验",
+          "tone": "gold"
+        },
+        {
+          "label": "出处",
+          "value": "《山海经·海内北经》"
+        }
+      ],
+      "desc": "射姑国在海中，属列姑射，西南，山环之。大蟹在海中。陵鱼，人面，手足，鱼身，在海中。",
+      "button": {
+        "text": ""
+      }
+    }
+  ]
+}
