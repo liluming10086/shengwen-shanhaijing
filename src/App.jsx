@@ -6,9 +6,11 @@ import beastBackground from './assets/backgrounds/beast.jpg';
 import readingBackground from './assets/backgrounds/reading.jpg';
 import resultBackground from './assets/backgrounds/result.jpg';
 import beasts from './data/beasts.json';
+import beastVariants from './data/beastVariants.json';
 import BeastCard from './components/BeastCard.jsx';
 import RecordingPanel from './components/RecordingPanel.jsx';
 import { dialectProfiles } from './data/dialectEngine.js';
+import { voiceStyleLabel } from './data/voiceStyle.js';
 
 const flow = [['province', '选择省份'], ['beast', '浏览异兽'], ['reading', '方言朗读'], ['result', '声音结果']];
 const pageBackgrounds = { province: provinceBackground, beast: beastBackground, reading: readingBackground, result: resultBackground };
@@ -19,6 +21,7 @@ export default function App() {
   const [province, setProvince] = useState('');
   const [selectedId, setSelectedId] = useState(beasts[0].id);
   const [recording, setRecording] = useState(null);
+  const [liveVoiceStyle, setLiveVoiceStyle] = useState(null);
   const [musicPlaying, setMusicPlaying] = useState(false);
   const [musicError, setMusicError] = useState('');
   const audioRef = useRef(null);
@@ -41,11 +44,17 @@ export default function App() {
   const chooseProvince = (value) => {
     setProvince(value);
     const match = beasts.find((item) => item.province === value);
-    if (match) setSelectedId(match.id);
+    if (match) {
+      setSelectedId(match.id);
+      setRecording(null);
+      setLiveVoiceStyle(null);
+    }
   };
   const selectBeast = (item) => {
     setSelectedId(item.id);
     setProvince(item.province);
+    setLiveVoiceStyle(null);
+    setRecording(null);
   };
   const pauseMusicForRecording = () => {
     const audio = audioRef.current;
@@ -82,6 +91,7 @@ export default function App() {
       unlockedBeastId = pool[(draw[0] || Math.floor(Math.random() * 0xffffffff)) % pool.length].id;
     }
     setRecording({ ...result, unlockedBeastId, url: URL.createObjectURL(result.blob) });
+    setLiveVoiceStyle(result.voiceStyle?.style || null);
   };
 
   return <div className={'shell ' + (page === 'home' ? '' : 'page-shell')} style={page === 'home' ? undefined : { '--page-background': 'url("' + pageBackgrounds[page] + '")' }}>
@@ -151,16 +161,16 @@ export default function App() {
       </section>}
 
       {page === 'reading' && <section className="panel">
-        <Heading step="03 / 04" title={<>读出你的<br /><em>山海回响。</em></>} text="点击授权后开始本地录音与声音特征分析，最长 30 秒。声音会实时与四组方言参考模板比较，未匹配时触发异兽盲盒。" />
+        <Heading step="03 / 04" title={<>读出你的<br /><em>山海回响。</em></>} text="点击授权后开始本地录音与声音特征分析，最长 30 秒。声音风格会实验性地切换异兽二创图；方言参考模板比较与视觉风格判断分开进行。" />
         <div className="reading-layout">
-          <aside className="reading-art"><BeastCard beast={selectedBeast} liveFeatures={recording?.features} /><p>视觉变化仅表现本次录音特征，不判断说话人身份或方言归属。</p></aside>
+          <aside className="reading-art"><BeastCard beast={selectedBeast} liveFeatures={recording?.features} voiceStyle={liveVoiceStyle} /><p>声音风格判断仅用于切换同一异兽的二创图，不判断说话人身份或方言归属。</p></aside>
           <div className="reading-column">
             <section className="reading-text-card">
               <div className="reading-card-head"><span>朗读文本</span><small>{selectedBeast.name} · {selectedBeast.sourceReference}</small></div>
               <blockquote>{selectedBeast.excerpt}</blockquote>
               <p className="caption">项目浏览关联：{province || selectedBeast.province}</p>
             </section>
-            <RecordingPanel beast={selectedBeast} province={province || selectedBeast.province} recording={recording} onRecorded={saveRecording} onComplete={() => go('result')} onMusicPause={pauseMusicForRecording} onMusicResume={resumeMusicAfterRecording} />
+            <RecordingPanel beast={selectedBeast} province={province || selectedBeast.province} recording={recording} onRecorded={saveRecording} onComplete={() => go('result')} onMusicPause={pauseMusicForRecording} onMusicResume={resumeMusicAfterRecording} onVoiceStyleChange={setLiveVoiceStyle} />
           </div>
         </div>
       </section>}
@@ -168,13 +178,15 @@ export default function App() {
       {page === 'result' && <section className="panel">
         <Heading step="04 / 04" title={<>声音留下的<br /><em>本次印记。</em></>} text="以下数值只描述这次录音，并受设备、距离和环境影响；方言结果是与四组参考模板的近似比较，不是个人标签或说话人识别。" />
         {recording ? <div className="result-view">
-          <BeastCard beast={selectedBeast} liveFeatures={recording.features} />
+          <BeastCard beast={selectedBeast} liveFeatures={recording.features} voiceStyle={recording.voiceStyle?.style} />
           <div className="result-metrics"><div className="result-title">本次录音的声音特征 <small>本设备即时分析</small></div>
             <Metric label="音高估计" value={recording.features?.pitch ? Math.round(recording.features.pitch) + ' Hz' : '未检测到稳定音高'} help="依据波形周期估算；停顿和环境声会影响数值。" />
             <Metric label="响度（RMS）" value={recording.features?.rms != null ? recording.features.rms.toFixed(3) : '—'} help="录音波形的平均能量，不表示说话力度或情绪。" />
             <Metric label="频谱重心" value={recording.features?.spectralCentroid ? Math.round(recording.features.spectralCentroid) + ' Hz' : '—'} help="描述频谱能量集中位置，不等同于方言或身份。" />
             <Metric label="过零率" value={recording.features?.zcr != null ? recording.features.zcr.toFixed(3) : '—'} help="波形正负变化比例，作为声音纹理参考。" />
-            <p className="caption">视觉规则：音高控制异兽图像的轻微缩放，响度控制流金光晕，频谱重心影响亮度，过零率影响声波纹理。原图轮廓保持不变。</p>
+            <Metric label="异兽图像风格" value={voiceStyleLabel(recording.voiceStyle?.style)} help="柔缓/粗犷判断按音高、响度与过零率代理规则切换对应二创图；这是实验性判断。" />
+            {recording.voiceStyle?.style && !beastVariants[selectedBeast.id]?.[recording.voiceStyle.style] && <p className="caption">该异兽当前风格图缺少对应版本，已按确认方案保留原图。</p>}
+            <p className="caption">视觉规则：柔缓/粗犷倾向选择对应异兽二创图；响度控制流金光晕，频谱重心影响亮度，过零率影响声波纹理。取消音高驱动缩放，保留现有光晕与粒子效果。</p>
           </div>
           <section className="dialect-result">
             <div><small>四方言参考模板 · 实验性相似度比较</small>
@@ -196,7 +208,7 @@ export default function App() {
             const unlockedBeast = beasts.find((item) => item.id === recording.unlockedBeastId);
             return unlockedBeast && <section className="blindbox-result">
               <div className="blindbox-copy"><span>✦ 盲盒已开启</span><h2>本次解锁的山海异兽</h2><p>为这次未匹配的声音抽取一张异兽卡。卡片取自项目图集，本次结果保存在当前页面。</p></div>
-              <BeastCard beast={unlockedBeast} liveFeatures={recording.features} />
+              <BeastCard beast={unlockedBeast} liveFeatures={recording.features} voiceStyle={recording.voiceStyle?.style} />
             </section>;
           })()}
           <div className="recorded-audio"><div><strong>本地录音</strong><small>录音未上传，只有你点击下载后才保存到设备。</small></div><audio controls src={recording.url} /><a className="primary" href={recording.url} download={recording.filename}>下载录音</a></div>

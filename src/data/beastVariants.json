@@ -1,0 +1,136 @@
+{
+  "beast-01": {
+    "gentle": "/images/beast-variants/beast-01-gentle.png",
+    "rough": "/images/beast-variants/beast-01-rough.jpg"
+  },
+  "beast-02": {
+    "gentle": "/images/beast-variants/beast-02-gentle.png",
+    "rough": "/images/beast-variants/beast-02-rough.png"
+  },
+  "beast-03": {
+    "gentle": "/images/beast-variants/beast-03-gentle.png",
+    "rough": "/images/beast-variants/beast-03-rough.png"
+  },
+  "beast-04": {
+    "gentle": "/images/beast-variants/beast-04-gentle.png",
+    "rough": "/images/beast-variants/beast-04-rough.jpg"
+  },
+  "beast-05": {
+    "gentle": "/images/beast-variants/beast-05-gentle.jpg"
+  },
+  "beast-06": {
+    "gentle": "/images/beast-variants/beast-06-gentle.jpg",
+    "rough": "/images/beast-variants/beast-06-rough.jpg"
+  },
+  "beast-07": {
+    "gentle": "/images/beast-variants/beast-07-gentle.png",
+    "rough": "/images/beast-variants/beast-07-rough.png"
+  },
+  "beast-08": {
+    "gentle": "/images/beast-variants/beast-08-gentle.jpg",
+    "rough": "/images/beast-variants/beast-08-rough.png"
+  },
+  "beast-09": {
+    "gentle": "/images/beast-variants/beast-09-gentle.jpg",
+    "rough": "/images/beast-variants/beast-09-rough.jpg"
+  },
+  "beast-10": {
+    "gentle": "/images/beast-variants/beast-10-gentle.jpg",
+    "rough": "/images/beast-variants/beast-10-rough.png"
+  },
+  "beast-11": {
+    "gentle": "/images/beast-variants/beast-11-gentle.png",
+    "rough": "/images/beast-variants/beast-11-rough.png"
+  },
+  "beast-12": {
+    "gentle": "/images/beast-variants/beast-12-gentle.png",
+    "rough": "/images/beast-variants/beast-12-rough.png"
+  },
+  "beast-13": {
+    "gentle": "/images/beast-variants/beast-13-gentle.jpg",
+    "rough": "/images/beast-variants/beast-13-rough.png"
+  },
+  "beast-14": {
+    "gentle": "/images/beast-variants/beast-14-gentle.png",
+    "rough": "/images/beast-variants/beast-14-rough.jpg"
+  },
+  "beast-15": {
+    "gentle": "/images/beast-variants/beast-15-gentle.png",
+    "rough": "/images/beast-variants/beast-15-rough.png"
+  },
+  "beast-16": {
+    "gentle": "/images/beast-variants/beast-16-gentle.png",
+    "rough": "/images/beast-variants/beast-16-rough.jpg"
+  },
+  "beast-17": {
+    "gentle": "/images/beast-variants/beast-17-gentle.jpg",
+    "rough": "/images/beast-variants/beast-17-rough.png"
+  },
+  "beast-18": {
+    "gentle": "/images/beast-variants/beast-18-gentle.jpg",
+    "rough": "/images/beast-variants/beast-18-rough.png"
+  },
+  "beast-19": {
+    "gentle": "/images/beast-variants/beast-19-gentle.png",
+    "rough": "/images/beast-variants/beast-19-rough.jpg"
+  },
+  "beast-20": {
+    "gentle": "/images/beast-variants/beast-20-gentle.jpg",
+    "rough": "/images/beast-variants/beast-20-rough.png"
+  },
+  "beast-21": {
+    "gentle": "/images/beast-variants/beast-21-gentle.jpg",
+    "rough": "/images/beast-variants/beast-21-rough.jpg"
+  },
+  "beast-22": {
+    "gentle": "/images/beast-variants/beast-22-gentle.png",
+    "rough": "/images/beast-variants/beast-22-rough.png"
+  },
+  "beast-23": {
+    "gentle": "/images/beast-variants/beast-23-gentle.png",
+    "rough": "/images/beast-variants/beast-23-rough.png"
+  },
+  "beast-24": {
+    "gentle": "/images/beast-variants/beast-24-gentle.png",
+    "rough": "/images/beast-variants/beast-24-rough.jpg"
+  },
+  "beast-25": {
+    "gentle": "/images/beast-variants/beast-25-gentle.png",
+    "rough": "/images/beast-variants/beast-25-rough.png"
+  },
+  "beast-26": {
+    "gentle": "/images/beast-variants/beast-26-gentle.jpg",
+    "rough": "/images/beast-variants/beast-26-rough.jpg"
+  },
+  "beast-27": {
+    "gentle": "/images/beast-variants/beast-27-gentle.png",
+    "rough": "/images/beast-variants/beast-27-rough.jpg"
+  },
+  "beast-28": {
+    "gentle": "/images/beast-variants/beast-28-gentle.png",
+    "rough": "/images/beast-variants/beast-28-rough.jpg"
+  },
+  "beast-29": {
+    "rough": "/images/beast-variants/beast-29-rough.jpg"
+  },
+  "beast-30": {
+    "gentle": "/images/beast-variants/beast-30-gentle.png",
+    "rough": "/images/beast-variants/beast-30-rough.png"
+  },
+  "beast-31": {
+    "gentle": "/images/beast-variants/beast-31-gentle.jpg",
+    "rough": "/images/beast-variants/beast-31-rough.png"
+  },
+  "beast-32": {
+    "gentle": "/images/beast-variants/beast-32-gentle.jpg",
+    "rough": "/images/beast-variants/beast-32-rough.png"
+  },
+  "beast-33": {
+    "gentle": "/images/beast-variants/beast-33-gentle.jpg",
+    "rough": "/images/beast-variants/beast-33-rough.png"
+  },
+  "beast-34": {
+    "gentle": "/images/beast-variants/beast-34-gentle.jpg",
+    "rough": "/images/beast-variants/beast-34-rough.png"
+  }
+}

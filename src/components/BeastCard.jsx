@@ -1,11 +1,15 @@
 import { useEffect, useRef } from 'react';
+import beastVariants from '../data/beastVariants.json';
 
 const base = import.meta.env.BASE_URL;
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const map = (value, min, max, low, high) => low + (clamp(value, min, max) - min) / (max - min) * (high - low);
 
-export default function BeastCard({ beast, liveFeatures }) {
+export default function BeastCard({ beast, liveFeatures, voiceStyle }) {
   const host = useRef(null);
+  const variantImage = voiceStyle ? beastVariants[beast.id]?.[voiceStyle] : null;
+  const imagePath = variantImage || beast.image;
+  const imageUrl = base + imagePath.replace(/^\//, '');
 
   useEffect(() => {
     if (!host.current || !window.ShengqiBeastCard) return undefined;
@@ -31,15 +35,19 @@ export default function BeastCard({ beast, liveFeatures }) {
   }, [beast]);
 
   useEffect(() => {
+    const image = host.current?.shadowRoot?.querySelector('img.beast');
+    if (image && image.src !== new URL(imageUrl, window.location.href).href) image.src = imageUrl;
+  }, [beast, imageUrl]);
+
+  useEffect(() => {
     if (!host.current) return;
     const features = liveFeatures;
     const hasVoice = Boolean(features && features.rms > 0.003);
-    const pitch = hasVoice && features.pitch > 0 ? map(features.pitch, 90, 350, 0.99, 1.035) : 1;
     const brightness = hasVoice && features.spectralCentroid > 0 ? map(features.spectralCentroid, 400, 4200, 1, 1.13) : 1;
     const glow = hasVoice ? map(features.rms, 0, 0.18, 10, 28) : 12;
     const waveHeight = hasVoice ? map(features.zcr || 0, 0.01, 0.24, 0.94, 1.16) : 1;
     const waveOpacity = hasVoice ? map(features.rms, 0, 0.18, 0.22, 0.58) : 0.28;
-    host.current.style.setProperty('--sqc-beast-scale', pitch.toFixed(3));
+    host.current.style.setProperty('--sqc-beast-scale', '1');
     host.current.style.setProperty('--sqc-beast-brightness', brightness.toFixed(3));
     host.current.style.setProperty('--sqc-beast-glow', glow.toFixed(1) + 'px');
     host.current.style.setProperty('--sqc-wave-height', waveHeight.toFixed(3));

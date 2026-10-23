@@ -171,6 +171,7 @@
 }
 .dialect-live small { color: #e3d9b7; font-size: 11px; }
 .dialect-live b { color: #fff0a6; font-size: 14px; line-height: 1.6; }
+.voice-style-live span { color: #deddd4; font-size: 12px; line-height: 1.65; }
 .consent-row {
   display: flex;
   align-items: flex-start;

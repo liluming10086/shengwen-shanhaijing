@@ -1,17 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { matchDialect } from '../data/dialectEngine.js';
+import { classifyVoiceStyle, voiceStyleLabel } from '../data/voiceStyle.js';
 
 const LIMIT_SECONDS = 30;
 const defaultFeatures = { pitch: 0, rms: 0, spectralCentroid: 0, zcr: 0 };
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
-export default function RecordingPanel({ beast, province, recording, onRecorded, onComplete, onMusicPause, onMusicResume }) {
+export default function RecordingPanel({ beast, province, recording, onRecorded, onComplete, onMusicPause, onMusicResume, onVoiceStyleChange }) {
   const [consent, setConsent] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [busy, setBusy] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [features, setFeatures] = useState(null);
   const [dialectPreview, setDialectPreview] = useState(null);
+  const [voiceStylePreview, setVoiceStylePreview] = useState(null);
   const [error, setError] = useState('');
   const recorder = useRef(null);
   const streamRef = useRef(null);
@@ -20,6 +22,8 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
   const startedAt = useRef(0);
   const lastPaint = useRef(0);
   const lastDialectPaint = useRef(0);
+  const styleCandidate = useRef(null);
+  const styleCandidateCount = useRef(0);
   const aggregate = useRef({ pitch: 0, rms: 0, spectralCentroid: 0, zcr: 0, count: 0 });
   const pitchSamples = useRef([]);
   const mfccSum = useRef(Array(13).fill(0));
@@ -55,6 +59,10 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
       return;
     }
     setBusy(true);
+    setVoiceStylePreview(null);
+    styleCandidate.current = null;
+    styleCandidateCount.current = 0;
+    onVoiceStyleChange(null);
     onMusicPause();
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -66,6 +74,7 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
       mfccSum.current = Array(13).fill(0);
       setFeatures(null);
       setDialectPreview(null);
+      setVoiceStylePreview(null);
       lastDialectPaint.current = 0;
       const mimeType = typeof MediaRecorder.isTypeSupported === 'function'
         ? ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4'].find((type) => MediaRecorder.isTypeSupported(type))
@@ -106,6 +115,15 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
           mfcc: mfccSum.current.map((value) => value / total.mfccCount)
         } : null;
         const dialectMatch = matchDialect(dialectSample);
+        const voiceStyle = total.count && stablePitches.length >= 5
+          ? classifyVoiceStyle({
+            pitch: pitchMean,
+            pitchStd,
+            rms: resultFeatures.rms,
+            zcr: resultFeatures.zcr,
+            spectralCentroid: resultFeatures.spectralCentroid
+          })
+          : null;
         window.Voiceprint?.stop();
         stream.getTracks().forEach((track) => track.stop());
         streamRef.current = null;
@@ -113,11 +131,13 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
         setBusy(false);
         setElapsed(Math.round(duration));
         setFeatures(resultFeatures);
+        setVoiceStylePreview(voiceStyle);
+        onVoiceStyleChange(voiceStyle?.style || null);
         if (!recorderFailed.current && blob.size) {
           const ext = blob.type.includes('mp4') ? 'm4a' : 'webm';
           const safeProvince = province.replace(/[\\/:*?"<>|]/g, '');
           const safeName = beast.name.replace(/[\\/:*?"<>|]/g, '');
-          onRecorded({ blob, features: resultFeatures, dialectMatch, duration, filename: '声纹山海图_' + safeProvince + '_' + safeName + '_朗读.' + ext });
+          onRecorded({ blob, features: resultFeatures, dialectMatch, voiceStyle, duration, filename: '声纹山海图_' + safeProvince + '_' + safeName + '_朗读.' + ext });
         } else if (!recorderFailed.current) {
           setError('没有录到音频数据，请再试一次。');
         }
@@ -148,6 +168,28 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
           if (now - lastDialectPaint.current > 700) {
             lastDialectPaint.current = now;
             const total = aggregate.current;
+            if (total.count >= 20 && pitchSamples.current.length >= 5) {
+              const pitchMean = pitchSamples.current.reduce((sum, pitch) => sum + pitch, 0) / pitchSamples.current.length;
+              const pitchStd = Math.sqrt(pitchSamples.current.reduce((sum, pitch) => sum + (pitch - pitchMean) ** 2, 0) / pitchSamples.current.length);
+              const preview = classifyVoiceStyle({
+                pitch: pitchMean,
+                pitchStd,
+                rms: total.rms / total.count,
+                zcr: total.zcr / total.count,
+                spectralCentroid: total.spectralCentroid / total.count
+              });
+              if (preview) {
+                if (styleCandidate.current === preview.style) styleCandidateCount.current += 1;
+                else {
+                  styleCandidate.current = preview.style;
+                  styleCandidateCount.current = 1;
+                }
+                if (styleCandidateCount.current >= 2) {
+                  setVoiceStylePreview(preview);
+                  onVoiceStyleChange(preview.style);
+                }
+              }
+            }
             if (total.count >= 20 && total.mfccCount >= 20 && pitchSamples.current.length >= 5) {
               const pitchMean = pitchSamples.current.reduce((sum, pitch) => sum + pitch, 0) / pitchSamples.current.length;
               const pitchStd = Math.sqrt(pitchSamples.current.reduce((sum, pitch) => sum + (pitch - pitchMean) ** 2, 0) / pitchSamples.current.length);
@@ -204,6 +246,13 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
       <b>{isRecording
         ? (dialectPreview ? (dialectPreview.isUnknown ? '当前片段尚未贴近参考模板' : '当前片段更接近「' + dialectPreview.dialect + '」') : '正在积累朗读样本…')
         : '录音期间滚动比较；停止后生成本次结果'}</b>
+    </div>
+    <div className="dialect-live voice-style-live" aria-live="polite">
+      <small>异兽图像风格 · 实验性判断</small>
+      <b>{voiceStyleLabel(voiceStylePreview?.style)}</b>
+      <span>{voiceStylePreview
+        ? '柔缓线索命中 ' + voiceStylePreview.gentleVotes + '/3：音高偏高、RMS 偏低、过零率较低（纹理代理）。'
+        : '需要积累一段清晰朗读后显示；判断不代表方言或说话人身份。'}</span>
     </div>
     <p className="analysis-note">声音特征描述本次录音，不用于识别说话人身份；方言输出只表示它与内置参考模板的近似程度。</p>
     <p className="analysis-note dialect-model-note">方言体验使用原型提供的四组参考数值进行相似度比较，不是经过训练或验证的专业识别模型；朗读内容、口音混合和设备差异都可能影响结果。</p>
