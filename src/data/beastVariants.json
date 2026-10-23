@@ -1,7 +1,7 @@
 {
   "beast-01": {
     "gentle": "/images/beast-variants/beast-01-gentle.png",
-    "rough": "/images/beast-variants/beast-01-rough.jpg"
+    "rough": "/images/beast-variants/beast-01-rough.png"
   },
   "beast-02": {
     "gentle": "/images/beast-variants/beast-02-gentle.png",
@@ -13,7 +13,7 @@
   },
   "beast-04": {
     "gentle": "/images/beast-variants/beast-04-gentle.png",
-    "rough": "/images/beast-variants/beast-04-rough.jpg"
+    "rough": "/images/beast-variants/beast-04-rough.png"
   },
   "beast-05": {
     "gentle": "/images/beast-variants/beast-05-gentle.jpg"
