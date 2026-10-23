@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { matchDialect } from '../data/dialectEngine.js';
 import { classifyVoiceStyle, voiceStyleLabel } from '../data/voiceStyle.js';
+import { loadPublicScript } from '../utils/loadPublicScript.js';
 
 const LIMIT_SECONDS = 30;
 const defaultFeatures = { pitch: 0, rms: 0, spectralCentroid: 0, zcr: 0 };
@@ -45,6 +46,7 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
   }, []);
 
   const start = async () => {
+    let musicPaused = false;
     setError('');
     if (!consent) {
       setError('请先阅读并勾选本地录音说明。');
@@ -54,17 +56,18 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
       setError('当前浏览器不支持麦克风录音，请使用较新的 Chrome、Edge 或 Safari。');
       return;
     }
-    if (!window.Voiceprint || !window.Meyda) {
-      setError('声音分析组件没有加载成功，请刷新页面后重试。');
-      return;
-    }
     setBusy(true);
     setVoiceStylePreview(null);
     styleCandidate.current = null;
     styleCandidateCount.current = 0;
     onVoiceStyleChange(null);
-    onMusicPause();
     try {
+      await Promise.all([
+        loadPublicScript('vendor/meyda.min.js'),
+        loadPublicScript('voiceprint.js')
+      ]);
+      onMusicPause();
+      musicPaused = true;
       const stream = await navigator.mediaDevices.getUserMedia({
         audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
       });
@@ -210,7 +213,7 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
       nextRecorder.start(250);
       setIsRecording(true);
       setBusy(false);
-      timerRef.current = window.setInterval(() => setElapsed(Math.floor((Date.now() - startedAt.current) / 1000)), 200);
+      timerRef.current = window.setInterval(() => setElapsed(Math.floor((Date.now() - startedAt.current) / 1000)), 1000);
       timeoutRef.current = window.setTimeout(stop, LIMIT_SECONDS * 1000);
     } catch (cause) {
       if (window.Voiceprint?.isRunning()) window.Voiceprint.stop();
@@ -220,7 +223,7 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
       setIsRecording(false);
       setBusy(false);
       setError(cause?.name === 'NotAllowedError' ? '麦克风权限未获准。你可以允许访问后重试。' : (cause?.message || '无法启动录音，请检查麦克风后重试。'));
-      onMusicResume();
+      if (musicPaused) onMusicResume();
     }
   };
 
@@ -259,7 +262,7 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
     <label className="consent-row"><input type="checkbox" checked={consent} disabled={isRecording || busy} onChange={(event) => setConsent(event.target.checked)} /><span>我同意启用麦克风进行本地分析。录音只保存在当前页面内存中；我可试听，并在点击“下载录音”后保存到设备。网站不会上传或公开录音。</span></label>
     <div className="record-controls">
       {!isRecording
-        ? <button className="primary" type="button" disabled={busy} onClick={start}>{busy ? '正在连接麦克风…' : recording ? '重新录音' : '开始朗读并录音'}</button>
+        ? <button className="primary" type="button" disabled={busy} onClick={start}>{busy ? '正在准备声音分析…' : recording ? '重新录音' : '开始朗读并录音'}</button>
         : <button className="stop-record" type="button" onClick={stop}>停止录音</button>}
       <span className="record-time" aria-live="polite">{'00:' + String(Math.min(LIMIT_SECONDS, elapsed)).padStart(2, '0')} / 00:30</span>
       {recording && <a className="download-link" href={recording.url} download={recording.filename} onClick={download}>下载录音</a>}

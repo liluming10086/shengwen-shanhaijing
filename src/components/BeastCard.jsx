@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import beastVariants from '../data/beastVariants.json';
+import { loadPublicScript } from '../utils/loadPublicScript.js';
 
 const base = import.meta.env.BASE_URL;
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
@@ -12,31 +13,42 @@ export default function BeastCard({ beast, liveFeatures, voiceStyle }) {
   const imageUrl = base + imagePath.replace(/^\//, '');
 
   useEffect(() => {
-    if (!host.current || !window.ShengqiBeastCard) return undefined;
-    const config = {
-      name: beast.name,
-      pinyin: beast.pinyin,
-      num: '兽谱 · ' + String(beast.number).padStart(2, '0'),
-      book: beast.book,
-      image: base + beast.image.replace(/^\//, ''),
-      soundTag: '',
-      fields: [
-        { label: '古籍记载地点', value: beast.textualLocation },
-        { label: '项目浏览关联', value: beast.provinceLabel }
-      ],
-      desc: '声音特效依据本次朗读的数值变化；不识别说话人身份或方言归属。',
-      button: { text: '' },
-      showHalo: true,
-      showRings: true,
-      maxWidth: 520
+    let cancelled = false;
+    let card;
+    loadPublicScript('shengqi-beast-card.js').then(() => {
+      if (!cancelled && host.current && window.ShengqiBeastCard) {
+        const config = {
+          name: beast.name,
+          pinyin: beast.pinyin,
+          num: '兽谱 · ' + String(beast.number).padStart(2, '0'),
+          book: beast.book,
+          image: imageUrl,
+          soundTag: '',
+          fields: [
+            { label: '古籍记载地点', value: beast.textualLocation },
+            { label: '项目浏览关联', value: beast.provinceLabel }
+          ],
+          desc: '声音特效依据本次朗读的数值变化；不识别说话人身份或方言归属。',
+          button: { text: '' },
+          showHalo: true,
+          showRings: true,
+          maxWidth: 520
+        };
+        card = window.ShengqiBeastCard.mount(host.current, config);
+      }
+    }).catch((error) => console.error(error));
+    return () => {
+      cancelled = true;
+      card?.destroy();
     };
-    const card = window.ShengqiBeastCard.mount(host.current, config);
-    return () => card.destroy();
   }, [beast]);
 
   useEffect(() => {
     const image = host.current?.shadowRoot?.querySelector('img.beast');
-    if (image && image.src !== new URL(imageUrl, window.location.href).href) image.src = imageUrl;
+    if (image && image.src !== new URL(imageUrl, window.location.href).href) {
+      image.decoding = 'async';
+      image.src = imageUrl;
+    }
   }, [beast, imageUrl]);
 
   useEffect(() => {

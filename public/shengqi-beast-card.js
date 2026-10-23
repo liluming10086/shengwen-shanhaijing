@@ -177,7 +177,7 @@
     h.push('<div class="stage">');
     if (cfg.showHalo) h.push('<div class="halo"></div>');
     if (cfg.showRings) h.push('<div class="ring"></div><div class="ring r2"></div><div class="ring r3"></div>');
-    if (cfg.image) h.push('<img class="beast" src="' + esc(cfg.image) + '" alt="' + esc(cfg.name) + '">');
+    if (cfg.image) h.push('<img class="beast" src="' + esc(cfg.image) + '" alt="' + esc(cfg.name) + '" decoding="async">');
     else h.push('<div class="ph">' + esc(cfg.imagePlaceholder) + '</div>');
     h.push('</div>');
 

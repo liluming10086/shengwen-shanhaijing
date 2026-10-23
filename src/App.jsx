@@ -142,7 +142,7 @@ export default function App() {
         <div className="beast-browser">
           <div className="beast-grid" aria-label="34 条异兽资料">
             {beasts.map((item) => <button className={item.id === selectedId ? 'selected' : ''} key={item.id} onClick={() => selectBeast(item)} aria-pressed={item.id === selectedId}>
-              <img src={base + item.image.replace(/^\//, '')} alt="" loading="lazy" />
+              <img src={base + item.image.replace(/^\//, '')} alt="" loading="lazy" decoding="async" />
               <span className="beast-grid-copy"><small>{item.number.toString().padStart(2, '0')} · {item.provinceLabel}</small><strong>{item.name}</strong></span>
             </button>)}
           </div>

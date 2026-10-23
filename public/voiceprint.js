@@ -100,7 +100,8 @@
       if (running) return;
 
       try {
-        if (global.Tone && Tone.start) await Tone.start();
+        // Tone is only needed for optional audio effects; feature analysis runs without it.
+        if (enableEffects && global.Tone && Tone.start) await Tone.start();
         activeStream = options.stream || await navigator.mediaDevices.getUserMedia({ audio: true });
         ownsStream = !options.stream;
         if (!activeStream || !activeStream.getAudioTracks().length) throw new Error('没有可用的麦克风音轨。');
