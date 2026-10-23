@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { matchDialect } from '../data/dialectEngine.js';
 
 const LIMIT_SECONDS = 30;
 const defaultFeatures = { pitch: 0, rms: 0, spectralCentroid: 0, zcr: 0 };
@@ -10,6 +11,7 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
   const [busy, setBusy] = useState(false);
   const [elapsed, setElapsed] = useState(0);
   const [features, setFeatures] = useState(null);
+  const [dialectPreview, setDialectPreview] = useState(null);
   const [error, setError] = useState('');
   const recorder = useRef(null);
   const streamRef = useRef(null);
@@ -17,7 +19,10 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
   const timerRef = useRef(null);
   const startedAt = useRef(0);
   const lastPaint = useRef(0);
+  const lastDialectPaint = useRef(0);
   const aggregate = useRef({ pitch: 0, rms: 0, spectralCentroid: 0, zcr: 0, count: 0 });
+  const pitchSamples = useRef([]);
+  const mfccSum = useRef(Array(13).fill(0));
   const recorderFailed = useRef(false);
 
   const stop = () => {
@@ -56,8 +61,12 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
         audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true }
       });
       streamRef.current = stream;
-      aggregate.current = { pitch: 0, rms: 0, spectralCentroid: 0, zcr: 0, count: 0 };
+      aggregate.current = { pitch: 0, rms: 0, spectralCentroid: 0, zcr: 0, count: 0, mfccCount: 0 };
+      pitchSamples.current = [];
+      mfccSum.current = Array(13).fill(0);
       setFeatures(null);
+      setDialectPreview(null);
+      lastDialectPaint.current = 0;
       const mimeType = typeof MediaRecorder.isTypeSupported === 'function'
         ? ['audio/webm;codecs=opus', 'audio/webm', 'audio/mp4'].find((type) => MediaRecorder.isTypeSupported(type))
         : '';
@@ -83,6 +92,20 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
           spectralCentroid: total.spectralCentroid / total.count,
           zcr: total.zcr / total.count
         } : features || defaultFeatures;
+        const stablePitches = pitchSamples.current;
+        const pitchMean = stablePitches.length
+          ? stablePitches.reduce((sum, pitch) => sum + pitch, 0) / stablePitches.length
+          : resultFeatures.pitch;
+        const pitchStd = stablePitches.length
+          ? Math.sqrt(stablePitches.reduce((sum, pitch) => sum + (pitch - pitchMean) ** 2, 0) / stablePitches.length)
+          : 0;
+        const dialectSample = total.count && total.mfccCount && stablePitches.length >= 5 ? {
+          pitch: pitchMean,
+          pitchStd,
+          zcr: resultFeatures.zcr,
+          mfcc: mfccSum.current.map((value) => value / total.mfccCount)
+        } : null;
+        const dialectMatch = matchDialect(dialectSample);
         window.Voiceprint?.stop();
         stream.getTracks().forEach((track) => track.stop());
         streamRef.current = null;
@@ -94,7 +117,7 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
           const ext = blob.type.includes('mp4') ? 'm4a' : 'webm';
           const safeProvince = province.replace(/[\\/:*?"<>|]/g, '');
           const safeName = beast.name.replace(/[\\/:*?"<>|]/g, '');
-          onRecorded({ blob, features: resultFeatures, duration, filename: '声纹山海图_' + safeProvince + '_' + safeName + '_朗读.' + ext });
+          onRecorded({ blob, features: resultFeatures, dialectMatch, duration, filename: '声纹山海图_' + safeProvince + '_' + safeName + '_朗读.' + ext });
         } else if (!recorderFailed.current) {
           setError('没有录到音频数据，请再试一次。');
         }
@@ -111,11 +134,31 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
             aggregate.current.spectralCentroid += Number.isFinite(f.spectralCentroid) ? f.spectralCentroid : 0;
             aggregate.current.zcr += Number.isFinite(f.zcr) ? f.zcr : 0;
             aggregate.current.count += 1;
+            if (Number.isFinite(f.pitch) && f.pitch > 0) pitchSamples.current.push(f.pitch);
+            if (Array.isArray(f.mfcc) && f.mfcc.length === 13) {
+              aggregate.current.mfccCount += 1;
+              f.mfcc.forEach((value, index) => { if (Number.isFinite(value)) mfccSum.current[index] += value; });
+            }
           }
           const now = Date.now();
           if (now - lastPaint.current > 200) {
             lastPaint.current = now;
             setFeatures({ pitch: f.pitch || 0, rms: f.rms || 0, spectralCentroid: f.spectralCentroid || 0, zcr: f.zcr || 0 });
+          }
+          if (now - lastDialectPaint.current > 700) {
+            lastDialectPaint.current = now;
+            const total = aggregate.current;
+            if (total.count >= 20 && total.mfccCount >= 20 && pitchSamples.current.length >= 5) {
+              const pitchMean = pitchSamples.current.reduce((sum, pitch) => sum + pitch, 0) / pitchSamples.current.length;
+              const pitchStd = Math.sqrt(pitchSamples.current.reduce((sum, pitch) => sum + (pitch - pitchMean) ** 2, 0) / pitchSamples.current.length);
+              const sample = {
+                pitch: pitchMean,
+                pitchStd,
+                zcr: total.zcr / total.count,
+                mfcc: mfccSum.current.map((value) => value / total.mfccCount)
+              };
+              setDialectPreview(matchDialect(sample));
+            }
           }
         },
         onError: (cause) => setError(cause?.message || '声音分析启动失败。')
@@ -156,7 +199,14 @@ export default function RecordingPanel({ beast, province, recording, onRecorded,
     <div className="live-metrics" aria-live="polite">
       <span><small>音高估计</small><b>{pitch}</b></span><span><small>响度 RMS</small><b>{rms}</b></span><span><small>频谱重心</small><b>{centroid}</b></span><span><small>过零率</small><b>{zcr}</b></span>
     </div>
-    <p className="analysis-note">数字是本次录音的即时信号特征，受麦克风、距离与环境影响；不用于说话人识别或方言判定。</p>
+    <div className="dialect-live" aria-live="polite">
+      <small>实时方言模板比较</small>
+      <b>{isRecording
+        ? (dialectPreview ? (dialectPreview.isUnknown ? '当前片段尚未贴近参考模板' : '当前片段更接近「' + dialectPreview.dialect + '」') : '正在积累朗读样本…')
+        : '录音期间滚动比较；停止后生成本次结果'}</b>
+    </div>
+    <p className="analysis-note">声音特征描述本次录音，不用于识别说话人身份；方言输出只表示它与内置参考模板的近似程度。</p>
+    <p className="analysis-note dialect-model-note">方言体验使用原型提供的四组参考数值进行相似度比较，不是经过训练或验证的专业识别模型；朗读内容、口音混合和设备差异都可能影响结果。</p>
     <label className="consent-row"><input type="checkbox" checked={consent} disabled={isRecording || busy} onChange={(event) => setConsent(event.target.checked)} /><span>我同意启用麦克风进行本地分析。录音只保存在当前页面内存中；我可试听，并在点击“下载录音”后保存到设备。网站不会上传或公开录音。</span></label>
     <div className="record-controls">
       {!isRecording

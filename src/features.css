@@ -159,6 +159,18 @@
 .live-metrics small { color: #e0ddcf; font-size: 10px; }
 .live-metrics b { color: #fff3bf; font-size: 12px; overflow-wrap: anywhere; }
 .analysis-note, .privacy { color: #deddd4; font-size: 12px; line-height: 1.8; }
+.dialect-model-note { margin-top: -5px; padding: 9px 11px; border-left: 2px solid rgba(240, 215, 120, .65); background: rgba(5, 22, 52, .45); }
+.dialect-live {
+  display: grid;
+  gap: 5px;
+  margin: 9px 0;
+  padding: 10px 12px;
+  border: 1px solid rgba(235, 219, 149, .27);
+  border-radius: 4px;
+  background: rgba(8, 31, 70, .7);
+}
+.dialect-live small { color: #e3d9b7; font-size: 11px; }
+.dialect-live b { color: #fff0a6; font-size: 14px; line-height: 1.6; }
 .consent-row {
   display: flex;
   align-items: flex-start;
@@ -227,6 +239,24 @@
 .recorded-audio small { color: #ddd9cf; font-size: 11px; line-height: 1.6; }
 .recorded-audio .primary { min-width: 120px; }
 .result-view .result-actions { grid-column: 1 / -1; }
+.dialect-result, .blindbox-result {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding: clamp(16px, 2.4vw, 24px);
+  border: 1px solid rgba(236, 224, 167, .35);
+  border-radius: 6px;
+  background: rgba(7, 26, 58, .84);
+  backdrop-filter: blur(10px);
+}
+.dialect-result { display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, .5fr); align-items: center; gap: 20px; }
+.dialect-result > div > small { color: #eedc96; font-size: 12px; }
+.dialect-result h2, .blindbox-copy h2 { margin: 8px 0; color: #fff3cf; font-size: clamp(20px, 2.5vw, 27px); line-height: 1.4; }
+.dialect-result p, .blindbox-copy p { margin: 0; color: #e2dfd3; font-size: 13px; line-height: 1.8; }
+.dialect-distance { display: inline-block; margin-top: 10px; color: #fff0a6; font-size: 12px; }
+.dialect-caveat { color: #d8d5cb; font-size: 11px; line-height: 1.8; }
+.blindbox-result { display: grid; grid-template-columns: minmax(0, .8fr) minmax(280px, 1fr); align-items: center; gap: 18px; }
+.blindbox-copy > span { color: #ffdf83; font-size: 13px; letter-spacing: .08em; }
+.blindbox-result .beast-card-host { max-width: 520px; justify-self: center; }
 
 .music-player {
   position: fixed;
@@ -270,7 +300,7 @@ footer a:focus-visible { outline: 2px solid #fff0a6; outline-offset: 3px; }
   .reading-layout { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); }
 }
 @media (max-width: 700px) {
-  .reading-layout, .result-view { grid-template-columns: 1fr; }
+  .reading-layout, .result-view, .dialect-result, .blindbox-result { grid-template-columns: 1fr; }
   .reading-art { order: 1; }
   .reading-column { order: 0; }
   .recorded-audio { grid-template-columns: 1fr; }

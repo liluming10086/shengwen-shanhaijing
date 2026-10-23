@@ -8,6 +8,7 @@ import resultBackground from './assets/backgrounds/result.jpg';
 import beasts from './data/beasts.json';
 import BeastCard from './components/BeastCard.jsx';
 import RecordingPanel from './components/RecordingPanel.jsx';
+import { dialectProfiles } from './data/dialectEngine.js';
 
 const flow = [['province', '选择省份'], ['beast', '浏览异兽'], ['reading', '方言朗读'], ['result', '声音结果']];
 const pageBackgrounds = { province: provinceBackground, beast: beastBackground, reading: readingBackground, result: resultBackground };
@@ -72,7 +73,15 @@ export default function App() {
   };
   const saveRecording = (result) => {
     // The effect above releases the previous object URL when recording.url changes.
-    setRecording({ ...result, url: URL.createObjectURL(result.blob) });
+    const shouldUnlock = result.dialectMatch?.isUnknown && !result.dialectMatch?.noSample;
+    const pool = beasts.filter((item) => item.id !== selectedBeast.id);
+    let unlockedBeastId = null;
+    if (shouldUnlock && pool.length) {
+      const draw = new Uint32Array(1);
+      window.crypto?.getRandomValues?.(draw);
+      unlockedBeastId = pool[(draw[0] || Math.floor(Math.random() * 0xffffffff)) % pool.length].id;
+    }
+    setRecording({ ...result, unlockedBeastId, url: URL.createObjectURL(result.blob) });
   };
 
   return <div className={'shell ' + (page === 'home' ? '' : 'page-shell')} style={page === 'home' ? undefined : { '--page-background': 'url("' + pageBackgrounds[page] + '")' }}>
@@ -98,7 +107,7 @@ export default function App() {
           <div className="section-head"><div><p className="eyebrow">从阅读到再创作</p><h2>一段声音旅程</h2></div><p>从选择省份、浏览古籍异兽，到朗读与声音表达。</p></div>
           <div className="cards">{flow.map(([id, title], index) => <button key={id} onClick={() => go(id)}>
             <small>0{index + 1}</small><b>{['⌖', '◈', '〰', '✳'][index]}</b><strong>{title}</strong>
-            <span>{['以省级行政区作为浏览入口。', '查看异兽图像、原文和出处。', '本地录音，实时查看声音特征。', '按本次朗读呈现可解释的视觉变化。'][index]}</span><i>↗</i>
+            <span>{['以省级行政区作为浏览入口。', '查看异兽图像、原文和出处。', '本地提取声音特征，实时比较四组方言模板。', '按本次朗读呈现视觉变化；未匹配模板时开启盲盒。'][index]}</span><i>↗</i>
           </button>)}</div>
           <p className="journey-note">声音分析在本设备内完成；录音不会上传。省份作为浏览入口，古籍记载地点单独呈现。</p>
         </div>
@@ -142,7 +151,7 @@ export default function App() {
       </section>}
 
       {page === 'reading' && <section className="panel">
-        <Heading step="03 / 04" title={<>读出你的<br /><em>山海回响。</em></>} text="点击授权后开始本地录音与声音特征分析，最长 30 秒。朗读时异兽周边的声波与鎏金光效会随声音轻微变化。" />
+        <Heading step="03 / 04" title={<>读出你的<br /><em>山海回响。</em></>} text="点击授权后开始本地录音与声音特征分析，最长 30 秒。声音会实时与四组方言参考模板比较，未匹配时触发异兽盲盒。" />
         <div className="reading-layout">
           <aside className="reading-art"><BeastCard beast={selectedBeast} liveFeatures={recording?.features} /><p>视觉变化仅表现本次录音特征，不判断说话人身份或方言归属。</p></aside>
           <div className="reading-column">
@@ -157,7 +166,7 @@ export default function App() {
       </section>}
 
       {page === 'result' && <section className="panel">
-        <Heading step="04 / 04" title={<>声音留下的<br /><em>本次印记。</em></>} text="以下数值只描述这次录音，并受设备、距离和环境影响；不是个人标签、方言识别或说话人识别。" />
+        <Heading step="04 / 04" title={<>声音留下的<br /><em>本次印记。</em></>} text="以下数值只描述这次录音，并受设备、距离和环境影响；方言结果是与四组参考模板的近似比较，不是个人标签或说话人识别。" />
         {recording ? <div className="result-view">
           <BeastCard beast={selectedBeast} liveFeatures={recording.features} />
           <div className="result-metrics"><div className="result-title">本次录音的声音特征 <small>本设备即时分析</small></div>
@@ -167,6 +176,29 @@ export default function App() {
             <Metric label="过零率" value={recording.features?.zcr != null ? recording.features.zcr.toFixed(3) : '—'} help="波形正负变化比例，作为声音纹理参考。" />
             <p className="caption">视觉规则：音高控制异兽图像的轻微缩放，响度控制流金光晕，频谱重心影响亮度，过零率影响声波纹理。原图轮廓保持不变。</p>
           </div>
+          <section className="dialect-result">
+            <div><small>四方言参考模板 · 实验性相似度比较</small>
+              <h2>{recording.dialectMatch?.noSample
+                ? '有效朗读样本不足'
+                : recording.dialectMatch?.isUnknown
+                  ? '未贴近内置参考模板'
+                  : '更接近「' + recording.dialectMatch?.dialect + '」参考模板'}</h2>
+              <p>{recording.dialectMatch?.noSample
+                ? '这次录音没有足够的清晰语音特征。请回到朗读页面再试一次。'
+                : recording.dialectMatch?.isUnknown
+                  ? '当前声音与粤语、上海话、四川话、闽南语四组原型数据差异较大，因此触发一次盲盒抽取。'
+                  : '这是与「' + recording.dialectMatch?.dialect + '」参考数据的相似度结果，不代表准确识别了你的方言。'}</p>
+              {!recording.dialectMatch?.noSample && recording.dialectMatch?.distance != null && <span className="dialect-distance">最近模板距离：{recording.dialectMatch.distance.toFixed(2)} · 模板：{Object.keys(dialectProfiles).join('、')}</span>}
+            </div>
+            <small className="dialect-caveat">内置模板来自队友提供的演示代码，样本量和适用范围有限；朗读内容、设备、环境与个人差异都会影响比较结果。</small>
+          </section>
+          {recording.unlockedBeastId && (() => {
+            const unlockedBeast = beasts.find((item) => item.id === recording.unlockedBeastId);
+            return unlockedBeast && <section className="blindbox-result">
+              <div className="blindbox-copy"><span>✦ 盲盒已开启</span><h2>本次解锁的山海异兽</h2><p>为这次未匹配的声音抽取一张异兽卡。卡片取自项目图集，本次结果保存在当前页面。</p></div>
+              <BeastCard beast={unlockedBeast} liveFeatures={recording.features} />
+            </section>;
+          })()}
           <div className="recorded-audio"><div><strong>本地录音</strong><small>录音未上传，只有你点击下载后才保存到设备。</small></div><audio controls src={recording.url} /><a className="primary" href={recording.url} download={recording.filename}>下载录音</a></div>
           <div className="result-actions"><button className="outline" onClick={() => go('reading')}>返回朗读</button><button className="primary" onClick={() => { setRecording(null); go('province'); }}>重新开始 ↻</button></div>
         </div> : <div className="form"><p className="note">还没有本次录音结果。请先完成朗读和声音分析。</p><button className="primary full" onClick={() => go('reading')}>返回朗读页面 →</button></div>}
